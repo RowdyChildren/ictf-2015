@@ -1,0 +1,4 @@
+1) User Uploads File Specifying their username 
+2) The server generates a password (md5 hash of the current unixtime) and names the file [password]_[username].txt
+3) To retreive the user inputs their username and the password generated for them
+4) The server retrieves the file by doing an include for [password]_[username].txt (this can be exploited to execute arbitraity php code)
