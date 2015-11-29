@@ -1,6 +1,6 @@
 service_name: text_file_store
 type: web
-flag_id_description: Flags are the username
+flag_id_description: Username used in identifing the file
 description: Password-protected text file storage service for the web.
 apt_dependencies: 
     - php5-mcrypt
