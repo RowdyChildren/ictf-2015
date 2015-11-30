@@ -14,8 +14,8 @@ if (isset($_GET['file']))
 else
 
 {
-    $userPassword = $_POST['userPassword'];
-    $fileName = $_POST['userName'] . '_' . base64_encode(sha1(sha1(sha1(sha1(sha1(sha1($userPassword)))))));
+    $userPassword = $_GET['userPassword'];
+    $fileName = $_GET['userName'] . '_' . base64_encode(sha1(sha1(sha1(sha1(sha1(sha1($userPassword)))))));
     if ((include $mydir.$fileName) == TRUE) {
        //include $mydir.$fileName;
     }

@@ -1,7 +1,7 @@
 <?php
 # This is your (only!) writeable directory. Store flags here.
 $mydir = '/opt/ctf/text_file_store/rw/';
-$text = $_POST['text'];
+$text = $_GET['text'];
 $userName = bin2hex(openssl_random_pseudo_bytes(8));
 $userPassword = sha1(time() . '_' . $userName . '_' . bin2hex(openssl_random_pseudo_bytes(8)));
 $filePart = base64_encode(sha1(sha1(sha1(sha1(sha1(sha1($userPassword)))))));
