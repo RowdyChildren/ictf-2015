@@ -31,4 +31,3 @@ def get_flag(ip, port, flag_id, token):
 
     return { 'FLAG': str(flag) }
 
-print get_flag('127.0.0.1', '8080', '4c90f9d3495b4541' ,'8b3ba0f9c735f4def1128cb58749e45e617b12a6')
