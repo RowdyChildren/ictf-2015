@@ -25,7 +25,7 @@ def get_flag(ip, port, flag_id, token):
     
     if re.search(r'Invalid Username or Password', r.text):
         raise WrongUsernameOrPassword
-    flag = urllib2.urlopen(r.url).read();
+    flag = r.text;
 
     
 

@@ -4,20 +4,28 @@ import requests
 import urllib2
 
 def set_flag(ip, port, flag):
-    url = 'http://' + ip + ':' + str(port) + '/uploadFile.php'
-    r = requests.post(url, data = {'text': flag})
+   
+    r = requests.post('http://' + ip + ':' + str(port) + '/text_file_store/src/uploadFile.php?text=' + flag , data = {})
 
     # make sure the request was successful
+    
     assert r.status_code == 200
 
-    response = urllib2.urlopen(r.url);
-    for line in response
-        if 'Username' in line
-            u = line.split(':')
-            username = u[1]
-        else if 'Password' in line
-            p = line.split(':')
-            password = p[1]
-
-if __name__ == "__main__":
-    print set_flag(None, None, "FLG_just_testing")
+    #response = urllib2.urlopen(r.url);
+    username = re.search(r'Username: ([0-9a-f]+)', r.text)
+    password = re.search(r'Password: ([0-9a-f]+)', r.text)
+    #for line in response:
+    #    if 'Username' in line:
+    #        u = line.split(': ')
+    #        username = u[1]
+    #        username.replace('</p>\\n', '')
+    #    if 'Password' in line:
+    #        p = line.split(': ')
+    #        password = p[1]
+    #        password.replace('</p>\\n', '')
+    return {
+        'FLAG_ID': username.group(1).replace('u\'', '\''),
+        'TOKEN': password.group(1).replace('u\'', '\''),  # benign (get_flag) will know this, exploits will not
+            }
+            
+print set_flag('127.0.0.1', '8080', 'test123')
