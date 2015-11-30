@@ -11,7 +11,7 @@ def get_flag(ip, port, flag_id, token):
     username = flag_id
     password = token
 
-    
+
     #conn = socket.create_connection(ip, port)
    
     
@@ -30,4 +30,5 @@ def get_flag(ip, port, flag_id, token):
     
 
     return { 'FLAG': flag }
+
 
