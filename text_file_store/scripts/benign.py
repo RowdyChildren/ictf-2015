@@ -7,6 +7,9 @@ import string
 # To create random strings
 POSSIBILITIES = string.ascii_uppercase + string.digits + string.ascii_lowercase
 
+class WrongUsernameOrPassword(Exception):
+    pass
+
 def benign(ip, port):
    
    
@@ -18,7 +21,7 @@ def benign(ip, port):
 
     
     content = ''.join(random.choice(POSSIBILITIES) for x in range(20))
-    
+    password = ''.join(random.choice(POSSIBILITIES) for x in range(10))
     r = requests.post('http://' + ip + ':' + str(port) + '/uploadFile.php?text=' + content , data = {})
 
     # make sure the request was successful
@@ -30,10 +33,9 @@ def benign(ip, port):
     password = re.search(r'Password: ([0-9a-f]+)', r.text).group(1)
     
     
-     r = requests.post('http://' + ip + ':' + str(port) + '/viewFile.php' + '?userName=' + username + '&userPassword=' + password , data = {
+    r = requests.post('http://' + ip + ':' + str(port) + '/viewFile.php' + '?userName=' + username + '&userPassword=' + password , data = {
         })
         
-
 
     # make sure the request was successful
     assert r.status_code == 200
@@ -42,16 +44,25 @@ def benign(ip, port):
         raise WrongUsernameOrPassword
 
     # And let's check that we can read it...
-    assert read_note(ip, port, note_id, password) == content
-
+    assert str(r.text) == str(content)
+    
     # ... but just with the right password (in normal operation)
     # Note that we interpret _any_ exception as a sign that the service is not behaving correctly.
     # In this case, the WrongPassword exception is in fact expected.
     try:
-        read_note(ip, port, note_id, wrong_password)
-        raise "WTF? Notes can be read with wrong passwords even without vulnerabilities?"
-    except WrongPassword:
+        r = requests.post('http://' + ip + ':' + str(port) + '/viewFile.php' + '?userName=' + username + '&userPassword=' + password , data = {
+            })
+        
+
+        # make sure the request was successful
+        assert r.status_code == 200
+    
+        if re.search(r'Invalid Username or Password', r.text):
+            raise WrongUsernameOrPassword
+    except WrongUsernameOrPassword:
         # All is good! Let's not pass this exception to the checking code
         pass
 
-    # Nothing to return, if we got here without exceptions we assume that everything worked :)
+    return
+
+# Nothing to return, if we got here without exceptions we assume that everything worked :)
