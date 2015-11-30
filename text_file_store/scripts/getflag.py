@@ -14,7 +14,7 @@ def get_flag(ip, port, flag_id, token):
     if ip:
         conn = socket.create_connection(ip, port)
         value = flag_id + '_' + token
-        url = 'http://' + ip + ':' + str(port) + '/viewFile.php'
+        url = 'http://' + ip + ':' + str(port) + '/text_file_store/src/viewFile.php'
         r = requests.post(url, data = {'file': value})
 
     # make sure the request was successful
