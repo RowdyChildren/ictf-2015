@@ -26,9 +26,9 @@ def get_flag(ip, port, flag_id, token):
     if re.search(r'Invalid Username or Password', r.text):
         raise WrongUsernameOrPassword
     flag = r.text;
-
+    
     
 
-    return { 'FLAG': flag }
+    return { 'FLAG': str(flag) }
 
-
+print get_flag('127.0.0.1', '8080', '4c90f9d3495b4541' ,'8b3ba0f9c735f4def1128cb58749e45e617b12a6')

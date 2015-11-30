@@ -1,4 +1,3 @@
-
 <?php
 $mydir = '/opt/ctf/text_file_store/rw/';
 if (isset($_GET['file']))
